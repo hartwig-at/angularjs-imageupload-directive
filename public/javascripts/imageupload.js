@@ -81,6 +81,7 @@ angular.module('imageupload', [])
                 resizeMaxWidth: '@',
                 resizeQuality: '@',
                 resizeType: '@',
+                result: '='
             },
             link: function postLink(scope, element, attrs, ctrl) {
 
@@ -100,8 +101,10 @@ angular.module('imageupload', [])
                         //console.log(imageResult);
                         if(attrs.multiple)
                             scope.image.push(imageResult);
-                        else
-                            scope.image = imageResult; 
+                        else {
+                            scope.image = imageResult;
+                            scope.result = imageResult.resized.dataURL;
+                        }
                     });
                 };
 
