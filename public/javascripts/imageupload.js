@@ -17,7 +17,7 @@ angular.module('imageupload', [])
             }
 
             return resizeArea;
-        }
+        };
 
         var resizeImage = function (origImage, options) {
             var maxHeight = options.resizeMaxHeight || 300;
@@ -90,7 +90,7 @@ angular.module('imageupload', [])
                         var dataURL = resizeImage(image, scope);
                         imageResult.resized = {
                             dataURL: dataURL,
-                            type: dataURL.match(/:(.+\/.+);/)[1],
+                            type: dataURL.match(/:(.+\/.+);/)[1]
                         };
                         callback(imageResult);
                     });
@@ -99,11 +99,12 @@ angular.module('imageupload', [])
                 var applyScope = function(imageResult) {
                     scope.$apply(function() {
                         //console.log(imageResult);
-                        if(attrs.multiple)
+                        if(attrs.multiple) {
                             scope.image.push(imageResult);
-                        else {
+                            scope.result.push( ( imageResult.resized ) ? imageResult.resized.dataURL : imageResult.url );
+                        } else {
                             scope.image = imageResult;
-                            scope.result = imageResult.resized.dataURL;
+                            scope.result = ( imageResult.resized ) ? imageResult.resized.dataURL : imageResult.url;
                         }
                     });
                 };
